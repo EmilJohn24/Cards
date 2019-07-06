@@ -64,3 +64,22 @@ char *get_deck_text(deck_t *deck){
     return get_hand_text(deck_hand);
 
 }
+void swap_cards(deck_t *deck, int first, int second){
+    card_t *tmp;
+    tmp = deck->cards[first];
+    deck->cards[first] = deck->cards[second];
+    deck->cards[second] = tmp;
+
+}
+void shuffle_deck(deck_t *deck, int swaps){
+    srand(time(NULL));
+    int size = deck->filled;
+    int first, second;
+    for (int i = 0; i != swaps; i++){
+        first = rand() % size;
+        second = rand() % size;
+        swap_cards(deck, first, second);
+    }
+
+
+}
