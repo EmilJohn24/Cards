@@ -22,4 +22,5 @@ card_t *get_card(deck_t *deck, int index); //safe card getter (does null checkin
 int push_card(card_t *card, deck_t *deck);
 bool is_full(deck_t *deck);
 char *get_deck_text(deck_t *deck);
+
 #endif // DECK_H_INCLUDED

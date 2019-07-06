@@ -75,6 +75,8 @@ char *get_card_text(const card_t *card){
     card_num_to_text(card, number);
     card_suit_to_text(card, suit);
     sprintf(text, "%s-%s", number, suit);
+    free(number);
+    free(suit);
     return text;
 
 
