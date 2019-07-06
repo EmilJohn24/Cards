@@ -69,14 +69,12 @@ char *card_suit_to_text(const card_t* card, char *suit){
 }
 char *get_card_text(const card_t *card){
     char *text = (char*) malloc(sizeof(char) * 30);
-    char *number = (char*) malloc(sizeof(char) * 10);
-    char *suit = (char*) malloc(sizeof(char) * 10);
+    char *number = (char*) malloc(sizeof(char) * 30);
+    char *suit = (char*) malloc(sizeof(char) * 30);
 
     card_num_to_text(card, number);
     card_suit_to_text(card, suit);
     sprintf(text, "%s-%s", number, suit);
-    free(number);
-    free(suit);
     return text;
 
 
