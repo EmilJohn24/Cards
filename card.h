@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include <locale.h>
+#include <wchar.h>
 #define SUIT_COUNT 4
 typedef unsigned char Suit;
 typedef int Number;
