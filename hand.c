@@ -31,7 +31,8 @@ void add_to_hand(card_t *card, hand_t *hand){
 char *get_hand_text(hand_t* hand){
     char *text = (char *) malloc(sizeof(char) * 100);
     *text = '\0';
-    for (int i = 0; i != hand->filled; i++){
+    int size = hand->filled;
+    for (int i = 0; i != size; i++){
         if (hand->cards[i] == NULL) continue;
         strcat(text, get_card_text(hand->cards[i]));
         strcat(text, "\n");
