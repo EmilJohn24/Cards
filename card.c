@@ -11,7 +11,7 @@ const Number QUEEN = 12;
 const Number KING  = 13;
 
 int get_sorting_num(const card_t *card){
-    return card->num * SUIT_COUNT + card->suit;
+    return (card->num * SUIT_COUNT) + card->suit;
 
 }
 
@@ -76,4 +76,13 @@ char *get_card_text(const card_t *card){
     card_suit_to_text(card, suit);
     sprintf(text, "%s-%s", number, suit);
     return text;
+}
+
+int compare_cards(const void *a, const void *b){
+    const card_t *card_a = *(card_t**)a;
+    const card_t *card_b = *(card_t**)b;
+    if (card_a == NULL) return 1;
+    if (card_b == NULL) return -1;
+    return get_sorting_num(card_a) - get_sorting_num(card_b);
+
 }

@@ -39,5 +39,8 @@ char *get_hand_text(hand_t* hand){
     }
 
     return text;
+}
 
+void sort_hand(hand_t *hand){
+    qsort(hand->cards, hand->filled, sizeof(hand_t*), compare_cards);
 }

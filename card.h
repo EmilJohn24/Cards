@@ -42,6 +42,7 @@ typedef struct Card{
 
 
 int get_sorting_num(const card_t *card);
+int compare_cards(const void *a, const void *b);
 card_t *new_card(Number num, Suit suit);
 char *get_card_text(const card_t *card);
 char *card_num_to_text(const card_t* card, char *number);
