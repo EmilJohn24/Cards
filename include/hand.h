@@ -4,11 +4,26 @@
 #include "card.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+typedef int HandType;
+//hand types
+extern const HandType NORMAL;
+extern const HandType PAIR;
+extern const HandType TWO_PAIR;
+extern const HandType TRIO;
+extern const HandType STRAIGHT;
+extern const HandType FLUSH;
+extern const HandType FULL_HOUSE;
+extern const HandType QUADRO;
+extern const HandType STRAIGHT_FLUSH; 
+
+
 typedef struct Hand {
     card_t **cards;
     int count;
     int filled;
 } hand_t;
+
 
 typedef struct Deck deck_t;
 hand_t *get_hand(int size, deck_t *deck);

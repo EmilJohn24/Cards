@@ -1,5 +1,16 @@
 #include "hand.h"
 
+//hand types
+const HandType NORMAL = 0;
+const HandType PAIR = 1;
+const HandType TWO_PAIR = 2;
+const HandType TRIO = 3;
+const HandType STRAIGHT = 4;
+const HandType FLUSH = 5;
+const HandType FULL_HOUSE = 6
+const HandType QUADRO = 7;
+const HandType STRAIGHT_FLUSH = 8; 
+
 
 hand_t *get_hand(int size, deck_t *deck){
     hand_t *hand = create_empty_hand(size);
