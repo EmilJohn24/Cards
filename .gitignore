@@ -1,14 +1,16 @@
+#IDEs
+*.depend
+*.layout
+!IDE/*/*.layout
+!IDE/*/*.depend
+
 # Codeblocks
 *.cbp
 !IDE/*/*.cbp
 
 #DevC++
-*.depend
-*.layout
 *.dev
 !IDE/*/*.dev
-!IDE/*/*.layout
-!IDE/*/*.depend
 
 #C stuff
 bin/*
