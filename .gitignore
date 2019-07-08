@@ -1,10 +1,13 @@
 *.depend
 *.layout
-bin/*
-obj/*
 *.cbp
 *.dev
-*.layout
-!IDE/*
+!IDE/*/*.cbp
+!IDE/*/*.dev
+!IDE/*/*.layout
+!IDE/*/*.depend
+
+bin/*
+obj/*
 *.exe
 *.o
