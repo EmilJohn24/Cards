@@ -5,4 +5,6 @@ obj/*
 *.cbp
 *.dev
 *.layout
+!IDE/*
 *.exe
+*.o
