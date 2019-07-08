@@ -1,12 +1,16 @@
+# Codeblocks
+*.cbp
+!IDE/*/*.cbp
+
+#DevC++
 *.depend
 *.layout
-*.cbp
 *.dev
-!IDE/*/*.cbp
 !IDE/*/*.dev
 !IDE/*/*.layout
 !IDE/*/*.depend
 
+#C stuff
 bin/*
 obj/*
 *.exe
