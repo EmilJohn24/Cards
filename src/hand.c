@@ -4,13 +4,45 @@
 const HandType NORMAL = 0;
 const HandType PAIR = 1;
 const HandType TWO_PAIR = 2;
-const HandType TRIO = 3;
-const HandType STRAIGHT = 4;
-const HandType FLUSH = 5;
-const HandType FULL_HOUSE = 6
-const HandType QUADRO = 7;
-const HandType STRAIGHT_FLUSH = 8; 
+const HandType TRIO = 4;
+const HandType STRAIGHT = 8;
+const HandType FLUSH = 16;
+const HandType FULL_HOUSE = 32;
+const HandType QUADRO = 64;
+const HandType STRAIGHT_FLUSH = FLUSH | STRAIGHT; 
 
+void remove_status(const HandType type, HandType *status){
+	*status |= ~type;
+}
+
+typedef struct Repeat {
+	Number card_number;
+	int repeats;
+} repeat_t;
+
+
+//TODO: Finish function
+HandType get_hand_type(hand_t *hand){
+	sort_hand(hand);
+	card_t **cards = hand->cards;
+	const int size = hand->filled;
+	repeat_t repeaters[size];
+	register repeat_track = 0;
+	register const Number straight_track = cards[0]->num;
+	register const Suit suit_track = cards[0]->suit;
+	HandType status = 0xFF;
+	for (int i = 0; i != size; i++){
+		if (cards[i]->suit != suit_track) remove_status(FLUSH, &status); //FLUSH CHECKING
+		if (i != 0 && cards[i]->num == cards[i-1]->num) repeater[repeat_track].repeats += 1;
+		if (i != 0 && cards[i]->num != cards[i-1]->num) repeat_track += 1;
+		if (cards[i]->num != straight_track + i) remove_status(STRAIGHT, &status);
+	}
+	
+	return status;
+	//check from the top
+	
+	
+}
 
 hand_t *get_hand(int size, deck_t *deck){
     hand_t *hand = create_empty_hand(size);

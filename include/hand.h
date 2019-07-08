@@ -24,8 +24,10 @@ typedef struct Hand {
     int filled;
 } hand_t;
 
-
+typedef struct Repeat repeat_t;
 typedef struct Deck deck_t;
+void remove_status(const HandType type, HandType *status);
+HandType get_hand_type(hand_t *hand);
 hand_t *get_hand(int size, deck_t *deck);
 hand_t *create_empty_hand(int size);
 void add_to_hand(card_t *card, hand_t *hand);
