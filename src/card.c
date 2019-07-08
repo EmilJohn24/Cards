@@ -10,6 +10,8 @@ const Number JACK = 11;
 const Number QUEEN = 12;
 const Number KING  = 13;
 
+
+
 int get_sorting_num(const card_t *card){
     return (card->num * SUIT_COUNT) + card->suit;
 
