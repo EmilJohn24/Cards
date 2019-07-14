@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef int HandType;
+typedef unsigned char HandType;
 //hand types
 extern const HandType NORMAL;
 extern const HandType PAIR;
@@ -15,7 +15,7 @@ extern const HandType STRAIGHT;
 extern const HandType FLUSH;
 extern const HandType FULL_HOUSE;
 extern const HandType QUADRO;
-extern const HandType STRAIGHT_FLUSH; 
+extern const HandType STRAIGHT_FLUSH;
 
 
 typedef struct Hand {
@@ -26,6 +26,7 @@ typedef struct Hand {
 
 typedef struct Repeat repeat_t;
 typedef struct Deck deck_t;
+char *get_hand_type_text(hand_t *hand);
 void remove_status(const HandType type, HandType *status);
 HandType get_hand_type(hand_t *hand);
 hand_t *get_hand(int size, deck_t *deck);
