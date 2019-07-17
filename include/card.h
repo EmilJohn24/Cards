@@ -45,4 +45,5 @@ card_t *new_card(Number num, Suit suit);
 char *get_card_text(const card_t *card);
 char *card_num_to_text(const card_t* card, char *number);
 char *card_suit_to_text(const card_t* card, char *suit);
+card_t text_to_card(const char *str);
 #endif // CARD_H_INCLUDED

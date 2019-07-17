@@ -48,4 +48,8 @@ char *get_hand_text(hand_t* hand);
 void sort_hand(hand_t *hand);
 Number get_high_number(hand_t *hand);
 Number *get_pivot(hand_t *hand, HandType type, repeat_t repeaters[], int repeater_count);
+int compare_hands(hand_t *a, hand_t *b); //returns 1 if a is stronger, -1 otherwise
+int request_card_from_deck(card_t card, deck_t *deck, hand_t *dst);
+int text_card_request(char *request, deck_t *deck, hand_t *dst);
+void complete_hand(hand_t *hand, deck_t *deck);
 #endif // HAND_H_INCLUDED

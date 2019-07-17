@@ -24,5 +24,4 @@ bool is_full(deck_t *deck);
 char *get_deck_text(deck_t *deck);
 void swap_cards(deck_t *deck, int first, int second);
 void shuffle_deck(deck_t *deck, int swaps);
-
 #endif // DECK_H_INCLUDED

@@ -85,6 +85,53 @@ int compare_cards(const void *a, const void *b){
     const card_t *card_b = *(card_t**)b;
     if (card_a == NULL) return 1;
     if (card_b == NULL) return -1;
+
     return get_sorting_num(card_a) - get_sorting_num(card_b);
+}
+
+card_t text_to_card(const char *str){
+    char *number_txt = (char*) malloc(sizeof(char) * 5);
+    char *suit_txt = (char*) malloc(sizeof(char) * 5);
+    card_t card;
+    char separator = '-';
+    int i = 0;
+    char check;
+    for(; check != separator; i++){
+        check = str[i];
+        if (str[i] == '\0') return card;
+        //printf("%s", number_txt);
+        //printf("%c", str[i]);
+        number_txt[i] = str[i];
+    }
+    number_txt[i-1] = '\0';
+    int num_len = i;
+    //printf("====%s", number_txt);
+    if (strcmp(number_txt, "JACK") == 0) card.num = _JACK;
+    else if (strcmp(number_txt, "QUEEN") == 0) card.num = _QUEEN;
+    else if (strcmp(number_txt, "KING") == 0) card.num = _KING;
+    else if (strcmp(number_txt, "ACE") == 0) card.num = _ACE;
+    else sscanf(number_txt, "%d", &(card.num));
+
+    while(str[i] != '\0') {
+        suit_txt[i-num_len] = str[i];
+        i++;
+    }
+    //printf("%s", suit_txt);
+    if (strcmp(suit_txt, "SPADE") == 0) card.suit = _SPADE;
+    else if (strcmp(suit_txt, "DIAMOND") == 0) card.suit = _DIAMOND;
+    else if (strcmp(suit_txt, "HEART") == 0) card.suit = _HEART;
+    else if (strcmp(suit_txt, "CLOVER") == 0) card.suit = _CLOVER;
+    else return card;
+    return card;
+
+
+
+
+
+
+
+
+
+
 
 }

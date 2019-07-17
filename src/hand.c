@@ -128,7 +128,7 @@ comparator_t get_hand_type(hand_t *hand){
 
 	int pair_count = 0;
     //this part will only work for 5-card hands
-    for (int j = 0; j != repeat_track; j++){
+    for (int j = 0; j <= repeat_track; j++){
             switch (repeaters[j].repeats){
                 case 2:
                     status |= PAIR;
@@ -171,9 +171,18 @@ hand_t *get_hand(int size, deck_t *deck){
 
 }
 
+void complete_hand(hand_t *hand, deck_t *deck){
+    for (int i = hand->filled; i != hand->count; i++){
+        add_to_hand(get_rnd_card(deck), hand);
+    }
+
+}
+
 hand_t *create_empty_hand(int size){
     hand_t *empty_hand = (hand_t*) malloc(sizeof(hand_t));
     empty_hand->cards = (card_t**) malloc(sizeof(card_t*) * size);
+    empty_hand->count = size;
+    empty_hand->filled = 0;
     for (int i = 0; i != size; i++)
         empty_hand->cards[i] = (card_t*) malloc(sizeof(card_t));
     return empty_hand;
@@ -204,4 +213,38 @@ char *get_hand_text(hand_t* hand){
 
 void sort_hand(hand_t *hand){
     qsort(hand->cards, hand->filled, sizeof(hand_t*), compare_cards);
+}
+
+int compare_hands(hand_t *a, hand_t *b){
+    comparator_t cmp_a = get_hand_type(a);
+    comparator_t cmp_b = get_hand_type(b);
+
+    if (cmp_a.type != cmp_b.type) return cmp_a.type - cmp_b.type;
+    else {
+        for (int i = 0; i != cmp_a.pivot_count; i++){
+            if (cmp_a.pivot[i] != cmp_b.pivot[i]) return cmp_a.pivot[i] - cmp_b.pivot[i];
+        }
+    }
+
+    return 0;
+}
+
+int text_card_request(char *request, deck_t *deck, hand_t *dst){
+    return request_card_from_deck(text_to_card(request), deck, dst);
+}
+
+
+
+int request_card_from_deck(card_t card, deck_t *deck, hand_t *dst){
+    for (int i = 0; i != deck->filled; i++){
+        if (deck->cards[i] != NULL){
+            if (card.num == deck->cards[i]->num && card.suit == deck->cards[i]->suit) {
+                add_to_hand(get_card(deck, i), dst);
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+
 }
