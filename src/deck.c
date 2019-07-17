@@ -32,7 +32,6 @@ bool is_full(deck_t *deck){
 }
 
 card_t *get_rnd_card(deck_t *deck){
-    srand(time(NULL));
     register int size = deck -> count;
     register int index = rand() % size;
     card_t *card;
@@ -72,7 +71,6 @@ void swap_cards(deck_t *deck, int first, int second){
 
 }
 void shuffle_deck(deck_t *deck, int swaps){
-    srand(time(NULL));
     int size = deck->filled;
     int first, second;
     for (int i = 0; i != swaps; i++){
