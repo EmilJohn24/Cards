@@ -5,7 +5,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <locale.h>
-#include <wchar.h>
 #define SUIT_COUNT 4
 typedef unsigned char Suit;
 typedef int Number;
@@ -37,7 +36,6 @@ typedef struct Card{
     Number num;
     hand_t *curr_holder;
 } card_t;
-
 
 
 
