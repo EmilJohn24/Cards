@@ -19,7 +19,6 @@ void regenerate(){
     init();
 }
 
-
 void custom_card(){
     init();
     Player = create_empty_hand(5);
@@ -152,6 +151,7 @@ void main_menu(){
             exit(0);
     }
     fflush(stdin);
+    printf("Click ENTER to continue...\n");
     getchar();
     main_menu();
 

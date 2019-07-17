@@ -1,0 +1,1 @@
+Please open the project file, not the main cpp file
