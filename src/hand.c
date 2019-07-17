@@ -15,14 +15,9 @@ void remove_status(const HandType type, HandType *status){
 	*status &= ~type;
 }
 
-typedef struct Repeat {
-	Number card_number;
-	int repeats;
-} repeat_t;
-
 
 char *get_hand_type_text(hand_t *hand){
-    int hand_id = get_hand_type(hand);
+    int hand_id = get_hand_type(hand).type;
     char *type = (char *) malloc(sizeof(char) * strlen("Straight Flush "));
 
     switch(hand_id){
@@ -48,7 +43,7 @@ char *get_hand_type_text(hand_t *hand){
             strcpy(type, "FULL HOUSE");
             break;
         case 64:
-            strcpy(type, "STRAIGHT FLUSH");
+            strcpy(type, "QUADRO");
             break;
 
 
@@ -57,7 +52,52 @@ char *get_hand_type_text(hand_t *hand){
     return type;
 }
 //TODO: Finish function
-HandType get_hand_type(hand_t *hand){
+
+Number get_high_number(hand_t *hand){
+    Number max = 0;
+    int count = hand->filled;
+    for (int i = 0; i != count; i++){
+        if (hand->cards[i]->num > max) max = hand->cards[i]->num;
+    }
+
+    return max;
+
+}
+
+Number *get_pivot(hand_t *hand, HandType type, repeat_t repeaters[], int repeater_count){
+    card_t **cards = hand->cards;
+	const int size = hand->filled;
+	Number *pivot = (Number *) malloc(sizeof(Number) * hand->filled);
+    for (int i = 0; i != hand->filled; i++) pivot[i] = 0;
+    int tracker = 0;
+
+	switch(type){
+        case 0: case 8: case 16:
+            sort_hand(hand);
+            for (int i = size - 1; i >= 0; i--)
+                pivot[i] = cards[i]->num;
+            break;
+        case 1: case 2: //PAIR AND TWO-PAIR
+            for (int i = repeater_count - 1; i >= 0; i--){
+                pivot[i] = repeaters[i].card_number;
+            }
+            break;
+        case 4: case 32: case 64:
+            for (int rep = 4; rep >= 1; rep--){
+                for (int i = 0; i != repeater_count; i++){
+                    if (rep == repeaters[i].repeats){
+                        pivot[tracker] = repeaters[i].card_number;
+                    }
+                }
+            }
+            break;
+	}
+
+	return pivot;
+
+}
+comparator_t get_hand_type(hand_t *hand){
+    comparator_t comparator;
 	sort_hand(hand);
 	card_t **cards = hand->cards;
 	const int size = hand->filled;
@@ -70,7 +110,8 @@ HandType get_hand_type(hand_t *hand){
 	HandType status = 0xFF;
 
 	for (int i = 1; i != size; i++){
-		if (cards[i]->suit != suit_track) remove_status(FLUSH, &status); //FLUSH CHECKING
+		if (cards[i]->suit != suit_track)
+            remove_status(FLUSH, &status); //FLUSH CHECKING
 		if (cards[i]->num == cards[i-1]->num) repeaters[repeat_track].repeats += 1;
 		else {
             repeat_track += 1;
@@ -100,8 +141,6 @@ HandType get_hand_type(hand_t *hand){
                     status |= QUADRO;
                     break;
         }
-
-
     }
         if (pair_count == 2) status |= TWO_PAIR;
         if ((status & (PAIR | TRIO)) == (PAIR | TRIO)) status |= FULL_HOUSE;
@@ -112,9 +151,11 @@ HandType get_hand_type(hand_t *hand){
         if ((hand_type & status) > 0) break;
 
     }
-    //printBin(status);
-
-    return hand_type;
+    //printBin(status);'
+    comparator.type = hand_type;
+    comparator.pivot = get_pivot(hand, hand_type, repeaters, repeat_track);
+    comparator.pivot_count = hand->filled;
+    return comparator;
 
 	//check from the top
 

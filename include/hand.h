@@ -24,14 +24,28 @@ typedef struct Hand {
     int filled;
 } hand_t;
 
-typedef struct Repeat repeat_t;
+typedef struct Repeat {
+       Number card_number;
+       int repeats;
+} repeat_t;
+
+typedef struct Comparator {
+    HandType type;
+    Suit suit;
+    Number* pivot;
+    int pivot_count;
+} comparator_t;
+
+
 typedef struct Deck deck_t;
 char *get_hand_type_text(hand_t *hand);
 void remove_status(const HandType type, HandType *status);
-HandType get_hand_type(hand_t *hand);
+comparator_t get_hand_type(hand_t *hand);
 hand_t *get_hand(int size, deck_t *deck);
 hand_t *create_empty_hand(int size);
 void add_to_hand(card_t *card, hand_t *hand);
 char *get_hand_text(hand_t* hand);
 void sort_hand(hand_t *hand);
+Number get_high_number(hand_t *hand);
+Number *get_pivot(hand_t *hand, HandType type, repeat_t repeaters[], int repeater_count);
 #endif // HAND_H_INCLUDED
